@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Built files
+/build
+
+# IDE files
+.vscode/
+.idea/
+
+# Log files
+*.log
+
+# Dependency lock files
+package-lock.json
+yarn.lock
+
+# Ignore .DS_Store files on macOS
+.DS_Store
