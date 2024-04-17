@@ -3,8 +3,14 @@ import { FaSearch } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../store/UserContext";
 
 function Header() {
+  const {user} = useContext(UserContext);
+  const name = user?.data?.name;
+  
+
   return (
     <div className=" w-full p-4 flex justify-between items-center">
       <Link to="/">
@@ -27,7 +33,8 @@ function Header() {
 
       <div className="flex items-center gap-2 border py-2 px-3 rounded-full shadow-md shadow-gray-300">
         <RxHamburgerMenu className="text-xl text-iconColor" />
-        <FaUserCircle className="text-xl text-iconColor" />
+        <Link to="/login"><FaUserCircle className="text-xl text-iconColor" /></Link>
+        {user && <p>{name}</p>}
       </div>
     </div>
   );
