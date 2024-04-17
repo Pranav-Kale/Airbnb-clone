@@ -1,11 +1,37 @@
-import express from 'express';
+const express = require("express");
+const cors = require("cors");
+const { default: mongoose } = require("mongoose");
+const User = require("./models/User.model.js");
+const bcrypt = require("bcrypt");
+require("dotenv").config();
 
+const bcryptSalt = bcrypt.genSaltSync(10);
 const app = express();
 
-app.get("/test",(req,res) => {
-    res.send("test ok");
-})
+app.use(express.json());
+app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 
-app.listen(4000 , () => {
-    console.log("Server is running on port 4000");
-})
+mongoose.connect(process.env.MONGO_URI);
+mongoose.connection.on("connected", () => {
+  console.log("Connected to MongoDB");
+});
+
+app.get("/test", (req, res) => {
+  res.json("test ok");
+});
+
+app.post("/register", async (req, res) => {
+  const { name, email, password } = req.body;
+  const userDoc = await User.create({
+    name,
+    email,
+    password: bcrypt.hashSync(password, bcryptSalt),
+  });
+  res.json(userDoc);
+});
+
+app.listen(4000, () => {
+  console.log("Server is running on port 4000");
+});
+
+// 1:09:00
