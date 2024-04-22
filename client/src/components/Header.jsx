@@ -8,7 +8,6 @@ import { UserContext } from "../store/UserContext";
 
 function Header() {
   const {user} = useContext(UserContext);
-  const name = user?.data?.name;
   
 
   return (
@@ -33,8 +32,8 @@ function Header() {
 
       <div className="flex items-center gap-2 border py-2 px-3 rounded-full shadow-md shadow-gray-300">
         <RxHamburgerMenu className="text-xl text-iconColor" />
-        <Link to="/login"><FaUserCircle className="text-xl text-iconColor" /></Link>
-        {user && <p>{name}</p>}
+        <Link to="/account"><FaUserCircle className="text-xl text-iconColor" /></Link>
+        {user && <p>{user?.name}</p>}
       </div>
     </div>
   );
