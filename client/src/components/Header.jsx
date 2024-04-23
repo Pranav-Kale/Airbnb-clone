@@ -7,8 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "../store/UserContext";
 
 function Header() {
-  const {user} = useContext(UserContext);
-  
+  const { user } = useContext(UserContext);
 
   return (
     <div className=" w-full p-4 flex justify-between items-center">
@@ -32,8 +31,10 @@ function Header() {
 
       <div className="flex items-center gap-2 border py-2 px-3 rounded-full shadow-md shadow-gray-300">
         <RxHamburgerMenu className="text-xl text-iconColor" />
-        <Link to={user ? "/account" : "/login"}><FaUserCircle className="text-xl text-iconColor" /></Link>
-        {user && <p>{user?.name}</p>}
+        <Link to={user ? "/account" : "/login"}>
+          <FaUserCircle className="text-xl text-iconColor" />
+        </Link>
+        {!!user && <div>{user.name}</div>}
       </div>
     </div>
   );

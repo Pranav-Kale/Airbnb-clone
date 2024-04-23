@@ -50,7 +50,7 @@ app.post("/login", async (req, res) => {
         {},
         (err, token) => {
           if (err) throw err;
-          res.cookie("token", token).json("pass ok");
+          res.cookie("token", token).json(userDoc);
         }
       );
     } else {
@@ -63,20 +63,17 @@ app.post("/login", async (req, res) => {
 
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
-  if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-    if (err) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-    try {
+  if (token) {
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+      if (err) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
       const { name, email, _id } = await User.findById(userData.id);
       res.json({ name, email, _id });
-    } catch (error) {
-      res.status(500).json({ error: "Internal Server Error" });
-    }
-  });
+    });
+  } else {
+    res.json(null);
+  }
 });
 
 app.post("/logout", (req, res) => {
