@@ -32,7 +32,7 @@ function Header() {
 
       <div className="flex items-center gap-2 border py-2 px-3 rounded-full shadow-md shadow-gray-300">
         <RxHamburgerMenu className="text-xl text-iconColor" />
-        <Link to="/account"><FaUserCircle className="text-xl text-iconColor" /></Link>
+        <Link to={user ? "/account" : "/login"}><FaUserCircle className="text-xl text-iconColor" /></Link>
         {user && <p>{user?.name}</p>}
       </div>
     </div>

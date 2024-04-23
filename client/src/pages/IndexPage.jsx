@@ -1,5 +1,8 @@
 
+
 function IndexPage() {
+
+
   return (
     <div>
         Index page is here
