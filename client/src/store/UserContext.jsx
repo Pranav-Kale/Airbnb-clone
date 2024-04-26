@@ -9,10 +9,9 @@ export function UserContextProvider({ children }) {
 
   useEffect(() => {
     if (!user) {
-      axios.get("/profile").then((userData) => {
-        setUser(userData.data);
+      axios.get("/profile").then(({data}) => {
+        setUser(data);
         setReady(true);
-        console.log("user called : ", userData.data);
       });
     }
   }, []); 

@@ -9,6 +9,8 @@ import { UserContext } from "../store/UserContext";
 function Header() {
   const { user } = useContext(UserContext);
 
+  console.log("User : ",user)
+
   return (
     <div className=" w-full p-4 flex justify-between items-center">
       <Link to="/">
@@ -34,7 +36,7 @@ function Header() {
         <Link to={user ? "/account" : "/login"}>
           <FaUserCircle className="text-xl text-iconColor" />
         </Link>
-        {!!user && <div>{user.name}</div>}
+        {!!user && <div>{user?.name} {console.log("Radhe Radhe")}</div> }
       </div>
     </div>
   );
