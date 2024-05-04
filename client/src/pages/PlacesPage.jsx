@@ -9,7 +9,7 @@ function PlacesPage() {
 
   const fetchPlaces = async () => {
     try {
-      const { data } = await axios.get("/places");
+      const { data } = await axios.get("/user-places");
       if (data) {
         setPlaces(data);
         console.log(data);

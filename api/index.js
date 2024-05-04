@@ -145,7 +145,7 @@ app.post("/places", verifyUser, async (req, res) => {
   res.json(placeDoc);
 });
 
-app.get("/places", verifyUser, async (req, res) => {
+app.get("/user-places", verifyUser, async (req, res) => {
   const places = await Place.find({ owner: req.user.id });
   res.json(places);
 });
@@ -190,6 +190,19 @@ app.put("/places", verifyUser, async (req, res) => {
     console.log("Not authorized");
   }
 });
+
+app.get("/places", async (req, res) => {
+  const places = await Place.find();
+  res.json(places);
+});
+
+app.get("/place/:id", async (req, res) => {
+  const id = req.params.id;
+  const place = await Place.findById(id);
+  res.json(place);
+});
+
+
 
 app.listen(4000, () => {
   console.log("Server is running on port 4000");

@@ -9,10 +9,8 @@ import { UserContext } from "../store/UserContext";
 function Header() {
   const { user } = useContext(UserContext);
 
-  console.log("User : ",user)
-
   return (
-    <div className=" w-full p-4 flex justify-between items-center">
+    <div className="bg-white px-2 sm:px-6 shadow-transparent fixed z-[500] w-full h-20 py-4 flex justify-between items-center">
       <Link to="/">
         <div className="flex gap-1 items-center">
           <AiFillEnvironment className="text-4xl text-primaryColor" />
@@ -36,7 +34,7 @@ function Header() {
         <Link to={user ? "/account" : "/login"}>
           <FaUserCircle className="text-xl text-iconColor" />
         </Link>
-        {!!user && <div>{user?.name} {console.log("Radhe Radhe")}</div> }
+        {!!user && <div>{user?.name}</div> }
       </div>
     </div>
   );

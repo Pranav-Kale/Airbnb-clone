@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { FaTrashCan } from "react-icons/fa6";
+import { IoStarOutline } from "react-icons/io5";
+import { IoStarSharp } from "react-icons/io5";
 import PropTypes from "prop-types";
 
 function PhotosUploader({ addedPhotos, onChange }) {
@@ -44,6 +47,16 @@ function PhotosUploader({ addedPhotos, onChange }) {
       });
   }
 
+  function removePhoto(e, fileName) {
+    e.preventDefault();
+    onChange([...addedPhotos.filter((photo) => photo !== fileName)]);
+  }
+
+  function selectAsMainPhoto(ev,filename) {
+    ev.preventDefault();
+    onChange([filename,...addedPhotos.filter((photo) => photo !== filename)]);
+  }
+
   return (
     <div className="flex flex-col gap-1">
       <p className={titleClass}>Photos</p>
@@ -68,7 +81,7 @@ function PhotosUploader({ addedPhotos, onChange }) {
         {addedPhotos.length > 0 &&
           addedPhotos.map((link, i) => (
             <div
-              className="mt-1 bg-gray-200 h-36 w-52 flex justify-center items-center rounded-3xl overflow-hidden"
+              className="relative mt-1 bg-gray-200 h-36 w-52 flex justify-center items-center rounded-3xl overflow-hidden border"
               key={i}
             >
               <img
@@ -76,6 +89,19 @@ function PhotosUploader({ addedPhotos, onChange }) {
                 src={`http://localhost:4000/uploads/` + link}
                 alt=""
               />
+              <button
+                onClick={(e) => removePhoto(e, link)}
+                className="absolute bottom-2 right-2 text-lg bg-black text-white p-2 rounded-xl opacity-60 hover:opacity-80 transition-all duration-150"
+              >
+                <FaTrashCan />
+              </button>
+              <button
+                onClick={(e) => selectAsMainPhoto(e,link)}
+                className="absolute bottom-2 left-2 text-lg bg-black text-white p-2 rounded-xl opacity-60 hover:opacity-80 transition-all duration-150"
+              >
+                {(link === addedPhotos[0]) && <IoStarSharp className="text-yellow-500 opacity-100"/>}
+                {(link !== addedPhotos[0]) && <IoStarOutline />}
+              </button>
             </div>
           ))}
       </div>

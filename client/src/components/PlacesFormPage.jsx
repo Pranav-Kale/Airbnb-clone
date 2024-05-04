@@ -1,14 +1,12 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import PhotosUploader from "./PhotosUploader";
 import Perks from "./Perks";
 import AccountNav from "../pages/AccountNav";
 import { Navigate, useParams } from "react-router-dom";
-import { UserContext } from "../store/UserContext";
 
 function PlacesFormPage() {
   const { id } = useParams();
-  const { user } = useContext(UserContext);
 
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
